@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { Provider } from 'react-redux';
+import  configureStore from './stores/store';
 
-import MainView from './Views/MainView';
-import MeasureView from './Views/MeasureView';
+
+import MainView from './views/MainView';
+import MeasureView from './views/MeasureView';
 
 const MainNavigator = createStackNavigator({
     Top: { screen: MainView },
@@ -18,7 +21,9 @@ const Navigator = createAppContainer(MainNavigator);
 export default class App extends Component {
     render() {
         return ( 
-            <Navigator / >
+            <Provider store={configureStore()}>
+                <Navigator / >
+            </Provider>
         )
     }
 };

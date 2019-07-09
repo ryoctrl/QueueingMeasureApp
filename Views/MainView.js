@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { scale } from 'react-native-size-matters';
-
-const types = {
-    QUEUE: 'QUEUE',
-    ORDER: 'ORDER',
-}
+import { connect } from 'react-redux';
+import MEASURE_TYPE from '../constants/measureType';
+import { setMeasure } from '../stores/actions';
 
 const styles = StyleSheet.create({
     container: {
@@ -44,8 +42,9 @@ const styles = StyleSheet.create({
 
 class MainView extends Component {
     beginMeasure(measureType) {
-        const { navigate } = this.props.navigation;
-        navigate('Measure');
+        const { dispatch, navigation } = this.props;
+        dispatch(setMeasure(measureType));
+        navigation.navigate('Measure');
     }
 
     render() {
@@ -57,14 +56,14 @@ class MainView extends Component {
                     </Text>
                 </View>
                 <View style={styles.buttons}>
-                    <TouchableOpacity onPress={() => this.beginMeasure(types.QUEUE)}>
+                    <TouchableOpacity onPress={() => this.beginMeasure(MEASURE_TYPE.QUEUE)}>
                         <View style={[styles.circle, styles.pink]}>
                             <Text style={styles.buttonText}>
                                 行列
                             </Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.beginMeasure(types.ORDER)}>
+                    <TouchableOpacity onPress={() => this.beginMeasure(MEASURE_TYPE.ORDER)}>
                         <View style={[styles.circle, styles.lime]}>
                             <Text style={styles.buttonText}>
                                 注文決済
@@ -77,4 +76,5 @@ class MainView extends Component {
     }
 };
 
-export default MainView;
+const select = datas => datas;
+export default connect(select)(MainView);
