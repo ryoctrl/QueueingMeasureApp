@@ -72,14 +72,14 @@ class QueueMeasureView extends Component {
                     </Text>
                 </View>
                 <View style={styles.buttons}>
-                    <TouchableOpacity style={[styles.button, styles.blueBack, styles.leftRadius]} onPress={() => dispatch(createNewQueue())}>
+                    <TouchableOpacity style={[styles.button, styles.blueBack, styles.leftRadius]} onPress={() => dispatch(createNewQueue(true))}>
                         <View>
                             <Text>
                                 男性
                             </Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.button, styles.pinkBack, styles.rightRadius]} onPress={() => dispatch(createNewQueue())}>
+                    <TouchableOpacity style={[styles.button, styles.pinkBack, styles.rightRadius]} onPress={() => dispatch(createNewQueue(false))}>
                         <View>
                             <Text>
                                 女性

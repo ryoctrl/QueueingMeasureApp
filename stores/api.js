@@ -13,8 +13,8 @@ export function fetchQueue() {
         .catch(error => ({error}));
 }
 
-export function newQueue() {
-    return axios.post(NEW_QUEUE_EP)
+export function newQueue(isMan) {
+    return axios.post(NEW_QUEUE_EP, {isMan})
         .then(res => res.data)
         .then(data => ({data}))
         .catch(error => ({error}));

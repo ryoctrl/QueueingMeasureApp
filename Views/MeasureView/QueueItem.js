@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     container: {
         width: width,
         alignItems: 'center',
-        height: verticalScale(25),
+        height: verticalScale(30),
         flexDirection: 'row',
     },
     dateBox: {
@@ -33,6 +33,12 @@ const styles = StyleSheet.create({
     },
     selecting: {
         backgroundColor: 'yellow'
+    },
+    manBackground: {
+        backgroundColor: 'skyblue',
+    },
+    womanBackground: {
+        backgroundColor: 'pink'
     }
 });
 
@@ -40,6 +46,7 @@ class QueueItem extends Component {
     render() {
         const { queue, isHeader, dispatch, measureState } = this.props;
         const isSelecting = measureState.queue.id === queue.id;
+        const isMan = queue.is_man;
         const queueingAt = queue.queueing_at ? new DateHelper(queue.queueing_at).getTime() : '-';
         const orderedAt = queue.ordered_at ? new DateHelper(queue.ordered_at).getTime() : '-';
         const paymentedAt = queue.paymented_at ? new DateHelper(queue.paymented_at).getTime() : '-';
@@ -47,7 +54,7 @@ class QueueItem extends Component {
 
         return (
             <TouchableOpacity onPress={() => dispatch(selectQueue(queue))}>
-                <View style={[styles.container, isHeader ? styles.whiteBack : {}]}>
+                <View style={[styles.container, isHeader ? styles.whiteBack : isMan ? styles.manBackground :styles.womanBackground]}>
                     <View style={[styles.markerContainer, isSelecting ? styles.selecting : {}]}>
                     </View>
                     <View style={styles.contentContainer}>

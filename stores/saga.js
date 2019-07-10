@@ -75,8 +75,8 @@ function* queueInitialize() {
 
 function* newQueueFlow() {
     while(true) {
-        yield take(createNewQueue);
-        yield call(newQueue);
+        const action = yield take(createNewQueue);
+        yield call(newQueue, action.payload);
     }
 }
 
