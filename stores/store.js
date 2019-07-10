@@ -1,8 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import reducer from './reducers/reducers';
-//import saga from './sagas';
-
+import saga from './saga';
 
 export default function configureStore(initialState) {
     const sagaMiddleware = createSagaMiddleware();
@@ -12,6 +11,6 @@ export default function configureStore(initialState) {
         )
     );
 
-    //sagaMiddleware.run(saga);
+    sagaMiddleware.run(saga);
     return store;
 }

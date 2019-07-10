@@ -1,0 +1,1 @@
+export const API_HOST = 'https://queue-api.mosin.jp/';
