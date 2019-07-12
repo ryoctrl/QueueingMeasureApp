@@ -7,6 +7,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import {
     selectQueue
 } from '../../stores/actions';
+import MEASURE_TYPES from '../../constants/measureType';
 const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
@@ -55,8 +56,7 @@ class QueueItem extends Component {
         return (
             <TouchableOpacity onPress={() => dispatch(selectQueue(queue))}>
                 <View style={[styles.container, isHeader ? styles.whiteBack : isMan ? styles.manBackground :styles.womanBackground]}>
-                    <View style={[styles.markerContainer, isSelecting ? styles.selecting : {}]}>
-                    </View>
+                    {measureState.type === MEASURE_TYPES.ORDER && <View style={[styles.markerContainer, isSelecting ? styles.selecting : {}]} /> }
                     <View style={styles.contentContainer}>
                         <View style={styles.dateBox}>
                             <Text>

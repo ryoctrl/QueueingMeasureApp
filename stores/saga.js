@@ -4,6 +4,7 @@ import { eventChannel } from 'redux-saga';
 import { API_HOST } from '../constants/api';
 import { 
     fetchQueue,
+    fetchQueueWithUncompleted,
     newQueue,
     updateOrder,
     updatePayment,
@@ -17,8 +18,11 @@ import {
     updateQueuePayment,
     updateQueueService,
     updateQueueList,
+    updateMeasureQueue,
     successFetchUncompletedQueue,
-    failureFetchUncompletedQueue
+    failureFetchUncompletedQueue,
+    successFetchQueue,
+    failureFetchQueue
 } from './actions';
 
 const webSocketOption = {
@@ -46,11 +50,14 @@ const subscribe = socket => {
     });
 };
 
+
 function* read(socket) {
     const channel = yield call(subscribe, socket);
     while(true) {
         const action = yield take(channel);
         yield put(action);
+        const queue = yield select(state => state.queue);
+        yield put(updateMeasureQueue(queue));
     }
 }
 
@@ -63,14 +70,32 @@ function* socketFlow() {
     yield fork(handleIO, socket);
 }
 
-function* queueInitialize() {
-    yield take(fetchUncompletedQueue);
-    const { data, error } = yield call(fetchQueue);
+function* initializeUncompletedQueue() {
+    const { data, error } = yield call(fetchQueueWithUncompleted);
     if(data && !error) {
         yield put(successFetchUncompletedQueue({data}));
     } else {
         yield put(failureFetchUncompletedQueue({error}));
     }
+}
+
+function* initializeAllQueue() {
+    const { data, error } = yield call(fetchQueue);
+    if(data && !error) {
+        yield put(successFetchQueue({data}));
+    } else {
+        yield put(failureFetchQueue({error}));
+    }
+}
+
+function* queueInitialize() {
+    const initializeUn = yield fork(initializeUncompletedQueue);
+    const initialize = yield fork(initializeAllQueue);
+    yield join(initializeUn);
+    yield join(initialize);
+    const queue = yield select(state => state.queue);
+    yield put(updateMeasureQueue(queue));
+
 }
 
 function* newQueueFlow() {

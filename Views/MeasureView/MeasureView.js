@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import MEASURE_TYPE from '../../constants/measureType';
 import QueueMeasureView from './QueueMeasureView';
 import OrderMeasureView from './OrderMeasureView';
+import HistoryMeasureView from './HistoryMeasureView';
 
 
 class MeasureView extends Component {
@@ -15,7 +16,7 @@ class MeasureView extends Component {
             case MEASURE_TYPE.QUEUE:
                 return <QueueMeasureView />
             default:
-                return <View><Text>計測タイプを選択してください</Text></View>
+                return <HistoryMeasureView />
         }
     }
 }

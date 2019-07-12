@@ -2,7 +2,8 @@ import { createReducer } from 'redux-act';
 import MEASURE_TYPES from '../../constants/measureType';
 import {
     setMeasure,
-    selectQueue
+    selectQueue,
+    updateMeasureQueue
 } from '../actions';
 
 const initialState = {
@@ -22,4 +23,27 @@ export default createReducer({
         newState.queue = action;
         return newState;
     },
+    [updateMeasureQueue]: (state, queueState) => {
+        const newState = Object.assign({}, state);
+
+        const isInitialState = state.queue.id === -1;
+        const needMeasureCount = queueState.needMeasureQueue.length;
+
+        if(isInitialState && needMeasureCount === 0) return state;
+
+        if(needMeasureCount === 0)  {
+            newState.queue = { id: -1 }
+            return newState;
+        }
+
+        const measureingQueue = queueState.needMeasureQueue.filter(q => q.id === state.queue.id);
+
+        if(isInitialState || measureingQueue.length === 0) {
+            newState.queue = queueState.needMeasureQueue[0];
+            console.log(newState);
+            return newState;
+        }
+
+        return state;
+    }
 }, initialState);

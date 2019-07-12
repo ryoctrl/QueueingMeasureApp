@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
     purpleBack: {
         backgroundColor: 'pink'
     }
-
 });
 
 class OrderMeasureView extends Component {
@@ -66,7 +65,7 @@ class OrderMeasureView extends Component {
 
     render() {
         const { dispatch, measure, queue } = this.props;
-        const queueList = queue.queue;
+        const queueList = queue.needMeasureQueue;
         return (
             <View style={styles.container}>
                 <View style={styles.title}>

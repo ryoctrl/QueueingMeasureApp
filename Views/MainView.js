@@ -37,6 +37,25 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: scale(20)
+    },
+    historyContainer: {
+        alignItems: 'center',
+
+    },
+    historyButton: {
+        borderRadius: 5,
+        margin: scale(20),
+        width: scale(120),
+        height: scale(60),
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    historyText: {
+        color: 'white',
+        fontSize: scale(20)
+    },
+    gray: {
+        backgroundColor: 'gray',
     }
 });
 
@@ -67,6 +86,20 @@ class MainView extends Component {
                         <View style={[styles.circle, styles.lime]}>
                             <Text style={styles.buttonText}>
                                 注文決済
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.title}>
+                    <Text style={styles.titleText}>
+                        計測履歴閲覧
+                    </Text>
+                </View>
+                <View style={styles.historyContainer}>
+                    <TouchableOpacity onPress={() => this.beginMeasure(MEASURE_TYPE.NONE)}>
+                        <View style={[styles.historyButton, styles.gray]}>
+                            <Text style={styles.historyText}>
+                                計測履歴
                             </Text>
                         </View>
                     </TouchableOpacity>
