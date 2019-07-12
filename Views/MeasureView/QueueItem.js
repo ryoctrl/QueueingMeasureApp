@@ -19,14 +19,17 @@ const styles = StyleSheet.create({
     },
     dateBox: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: verticalScale(30)
     },
     whiteBack: {
         backgroundColor: 'white'
     },
     markerContainer: {
         flex: 1,
-        height: verticalScale(25),
+        justifyContent: 'center',
+        height: verticalScale(30),
     },
     contentContainer: {
         flex: 19,
@@ -48,6 +51,7 @@ class QueueItem extends Component {
         const { queue, isHeader, dispatch, measureState } = this.props;
         const isSelecting = measureState.queue.id === queue.id;
         const isMan = queue.is_man;
+        const isCacheLess = queue.is_cacheless;
         const queueingAt = queue.queueing_at ? new DateHelper(queue.queueing_at).getTime() : '-';
         const orderedAt = queue.ordered_at ? new DateHelper(queue.ordered_at).getTime() : '-';
         const paymentedAt = queue.paymented_at ? new DateHelper(queue.paymented_at).getTime() : '-';
@@ -79,6 +83,12 @@ class QueueItem extends Component {
                             </Text>
                         </View>
                     </View>
+
+                    {measureState.type === MEASURE_TYPES.NONE && queue.serviced_at && 
+                    (<View style={[styles.markerContainer]} > 
+                        {isCacheLess ? <Text>L</Text> : <Text>C</Text>} 
+                    </View>)
+                    }
                 </View>
             </TouchableOpacity>
         )

@@ -42,7 +42,8 @@ return axios.post(UPDATE_PAYMENT_EP, queue)
         .catch(error => ({error}));
 }
 
-export function updateService(queue) {
+export function updateService(queue, isCacheLess) {
+    queue.isCacheLess = isCacheLess;
     return axios.post(UPDATE_SERVICE_EP, queue)
         .then(res => res.data)
         .then(data => ({data}))

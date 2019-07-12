@@ -11,6 +11,7 @@ import { verticalScale, scale } from 'react-native-size-matters';
 import { FlatList } from 'react-native-gesture-handler';
 import QueueItem from './QueueItem';
 import { updatePayment } from '../../stores/api';
+import QueueAction from './QueueAction';
 const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
@@ -74,27 +75,7 @@ class OrderMeasureView extends Component {
                     </Text>
                 </View>
                 <View style={styles.buttons}>
-                    <TouchableOpacity style={[styles.button, styles.yellowBack]} onPress={() => dispatch(updateQueueOrder())}>
-                        <View>
-                            <Text>
-                                注文
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[styles.button, styles.greenBack]} onPress={() => dispatch(updateQueuePayment())}>
-                        <View>
-                            <Text>
-                                決済
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[styles.button, styles.purpleBack]} onPress={() => dispatch(updateQueueService())}>
-                        <View>
-                            <Text>
-                                完了
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
+                    <QueueAction queue={measure.queue} dispatch={dispatch}/>
                 </View>
                 <View style={styles.queueList}>
                     <FlatList data={queueList}

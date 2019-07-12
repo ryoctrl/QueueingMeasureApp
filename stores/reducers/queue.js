@@ -58,15 +58,14 @@ export default createReducer({
         const newState = Object.assign({}, state);
         const data = action;
 
+
+        let targetAsAry = newState.needMeasureQueue.filter(q => q.id === data.id);
         // 要計測Queueか否か
         if(isCompleted(data)) {
-            const targetAsAry = newState.needMeasureQueue.filter(q => q.id === data.id);
             if(targetAsAry.length === 0) return state;
             const idx = newState.needMeasureQueue.indexOf(targetAsAry[0]);
             newState.needMeasureQueue.splice(idx, 1);
         } else {
-            console.log('data is not completed queue!');
-            const targetAsAry = newState.needMeasureQueue.filter(q => q.id === data.id);
             if(targetAsAry.length === 0) {
                 newState.needMeasureQueue.push(data);
             } else {
@@ -75,7 +74,7 @@ export default createReducer({
             }
         }
 
-        const targetAsAry = newState.queue.filter(q => q.id === data.id);
+        targetAsAry = newState.queue.filter(q => q.id === data.id);
 
         if(targetAsAry.length === 0) {
             newState.queue.push(data);

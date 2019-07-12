@@ -125,10 +125,10 @@ function* updatePaymentFlow() {
 
 function* updateServiceFlow() {
     while(true) {
-        yield take(updateQueueService);
+        const action = yield take(updateQueueService);
         const queue = yield select(state => state.measure.queue);
         if(queue.id === -1) continue;
-        yield call(updateService, queue);
+        yield call(updateService, queue, action.payload);
     }
 }
 

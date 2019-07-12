@@ -40,7 +40,6 @@ export default createReducer({
 
         if(isInitialState || measureingQueue.length === 0) {
             newState.queue = queueState.needMeasureQueue[0];
-            console.log(newState);
             return newState;
         }
 
