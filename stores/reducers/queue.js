@@ -16,7 +16,7 @@ const initialState = {
     error: null,
 };
 
-const isCompleted = queue => queue.queueing_at && queue.ordered_at && queue.paymented_at && queue.serviced_at;
+const isCompleted = queue => queue.queueing_at && queue.ordered_at && queue.paymented_at && queue.serviced_at && queue.handed_at;
 
 export default createReducer({
     [fetchQueue]: (state, action) => {

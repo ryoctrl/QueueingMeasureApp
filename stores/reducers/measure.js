@@ -38,11 +38,17 @@ export default createReducer({
 
         const measureingQueue = queueState.needMeasureQueue.filter(q => q.id === state.queue.id);
 
-        if(isInitialState || measureingQueue.length === 0) {
-            newState.queue = queueState.needMeasureQueue[0];
-            return newState;
+        if(isInitialState || measureingQueue.length === 0 || (measureingQueue[0].serviced_at && !measureingQueue[0].handed_at)) {
+            for (const queue of queueState.needMeasureQueue) {
+                if (!queue.serviced_at) {
+                    newState.queue = queue;
+                    return newState;
+                }
+            }
         }
 
         return state;
     }
 }, initialState);
+
+

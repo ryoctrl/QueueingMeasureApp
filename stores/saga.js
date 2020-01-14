@@ -8,7 +8,8 @@ import {
     newQueue,
     updateOrder,
     updatePayment,
-    updateService
+    updateService,
+    updateHand
 } from './api';
 
 import {
@@ -17,6 +18,7 @@ import {
     updateQueueOrder,
     updateQueuePayment,
     updateQueueService,
+    updateQueueHand,
     updateQueueList,
     updateMeasureQueue,
     successFetchUncompletedQueue,
@@ -123,6 +125,13 @@ function* updatePaymentFlow() {
     }
 }
 
+function* updateHandFlow() {
+    while(true) {
+        const queue = yield take(updateQueueHand)
+        yield call(updateHand, queue.payload);
+    }
+}
+
 function* updateServiceFlow() {
     while(true) {
         const action = yield take(updateQueueService);
@@ -139,6 +148,7 @@ export default function* rootSaga() {
     yield fork(updateOrderFlow);
     yield fork(updatePaymentFlow);
     yield fork(updateServiceFlow);
+    yield fork(updateHandFlow);
     yield put(fetchUncompletedQueue());
 }
 

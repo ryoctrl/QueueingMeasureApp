@@ -6,6 +6,7 @@ const NEW_QUEUE_EP = API_HOST + 'queue/new';
 const UPDATE_ORDER_EP = API_HOST + 'queue/order';
 const UPDATE_PAYMENT_EP = API_HOST + 'queue/payment';
 const UPDATE_SERVICE_EP = API_HOST + 'queue/service';
+const UPDATE_HAND_EP = API_HOST + 'queue/hand';
 
 export function fetchQueue() {
     return axios.get(FETCH_QUEUE_EP)
@@ -41,6 +42,14 @@ return axios.post(UPDATE_PAYMENT_EP, queue)
         .then(data => ({data}))
         .catch(error => ({error}));
 }
+
+export function updateHand(queue) {
+    return axios.post(UPDATE_HAND_EP, queue)
+        .then(res => res.data)
+        .then(data => ({data}))
+        .catch(error => ({error}));
+}
+
 
 export function updateService(queue, isCacheLess) {
     queue.isCacheLess = isCacheLess;

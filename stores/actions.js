@@ -13,6 +13,7 @@ export const NEW_QUEUE = 'NEW_QUEUE';
 export const UPDATE_ORDER = 'UPDATE_ORDER';
 export const UPDATE_PAYMENT = 'UPDATE_PAYMENT';
 export const UPDATE_SERVICE = 'UPDATE_SERVICE';
+export const UPDATE_HAND = 'UPDATE_HAND';
 export const UPDATE_QUEUE_LIST = 'UPDATE_QUEUE_LIST';
 
 export const fetchQueue = createAction(FETCH_QUEUE);
@@ -25,6 +26,7 @@ export const createNewQueue = createAction(NEW_QUEUE);
 export const updateQueueOrder = createAction(UPDATE_ORDER);
 export const updateQueuePayment = createAction(UPDATE_PAYMENT);
 export const updateQueueService = createAction(UPDATE_SERVICE);
+export const updateQueueHand = createAction(UPDATE_HAND);
 export const updateQueueList = createAction(UPDATE_QUEUE_LIST);
 
 export const SELECT_QUEUE = 'SELECT_QUEUE';
