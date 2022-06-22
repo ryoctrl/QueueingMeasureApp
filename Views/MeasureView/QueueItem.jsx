@@ -9,9 +9,10 @@ import {
     updateQueueHand
 } from '../../stores/actions';
 import MEASURE_TYPES from '../../constants/measureType';
-import { GestureHandler } from 'expo';
+// import { GestureHandler } from 'expo';
+// const { Swipeable } = GestureHandler;
 const { width } = Dimensions.get('window');
-const { Swipeable } = GestureHandler;
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 const styles = StyleSheet.create({
     container: {
@@ -65,10 +66,10 @@ class QueueItem extends Component {
         const paymentedAt = queue.paymented_at ? new DateHelper(queue.paymented_at).getTime() : '-';
         const servicedAt = queue.serviced_at ? new DateHelper(queue.serviced_at).getTime() : '-';
         const handedAt = queue.handed_at ? new DateHelper(queue.handed_at).getTime() : '-';
+        console.log('render')
 
         return (
             <TouchableOpacity onPress={() => dispatch(selectQueue(queue))}>
-                <Swipeable >
                     <View style={[styles.container, isHeader ? styles.whiteBack : isMan ? styles.manBackground :styles.womanBackground]}>
                         {measureState.type === MEASURE_TYPES.ORDER && <View style={[styles.markerContainer, isSelecting ? styles.selecting : {}]} /> }
                         <View style={styles.contentContainer}>
@@ -120,7 +121,6 @@ class QueueItem extends Component {
                         </View>)
                         }
                     </View>
-                </Swipeable>
             </TouchableOpacity>
         )
     }
