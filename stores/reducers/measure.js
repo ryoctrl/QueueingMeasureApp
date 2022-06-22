@@ -19,7 +19,7 @@ export default createReducer({
     },
     [selectQueue]: (state, action) => {
         const newState = Object.assign({}, state);
-        if(state.type !== MEASURE_TYPES.ORDER) return state;
+        if (state.type !== MEASURE_TYPES.ORDER) return state;
         newState.queue = action;
         return newState;
     },
@@ -29,16 +29,16 @@ export default createReducer({
         const isInitialState = state.queue.id === -1;
         const needMeasureCount = queueState.needMeasureQueue.length;
 
-        if(isInitialState && needMeasureCount === 0) return state;
+        if (isInitialState && needMeasureCount === 0) return state;
 
-        if(needMeasureCount === 0)  {
+        if (needMeasureCount === 0) {
             newState.queue = { id: -1 }
             return newState;
         }
 
         const measureingQueue = queueState.needMeasureQueue.filter(q => q.id === state.queue.id);
 
-        if(isInitialState || measureingQueue.length === 0 || (measureingQueue[0].serviced_at && !measureingQueue[0].handed_at)) {
+        if (isInitialState || measureingQueue.length === 0 || (measureingQueue[0].serviced_at && !measureingQueue[0].handed_at)) {
             for (const queue of queueState.needMeasureQueue) {
                 if (!queue.serviced_at) {
                     newState.queue = queue;
